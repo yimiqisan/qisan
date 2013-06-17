@@ -38,4 +38,4 @@ if [ -z $(which pip-2.7) ]; then
     sudo python2.7 $CONF_PATH/get-pip.py
 fi
 
-pip_install virtualenv==1.9.1 $PYTHON_PACKAGES/virtualenv-1.9.1.tar.gz
+#pip_install virtualenv==1.9.1 $PYTHON_PACKAGES/virtualenv-1.9.1.tar.gz
