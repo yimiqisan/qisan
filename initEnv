@@ -1,0 +1,51 @@
+#! /bin/bash -xv
+
+ROOT_PATH=$(dirname ${BASH_SOURCE[0]})
+
+# handles synbolic link
+if [ -h "$ROOT_PATH" ]; then
+    while [ -h "$ROOT_PATH" ]; do
+        ROOT_PATH=$(readlink -m "$ROOT_PATH")
+    done
+fi
+
+# convert to absolute path
+pushd . > /dev/null
+cd "$(dirname ${ROOT_PATH})" > /dev/null
+ROOT_PATH=$(pwd)
+popd > /dev/null
+
+# handles synbolic link
+if [ -h "$ROOT_PATH" ]; then
+    while [ -h "$ROOT_PATH" ]; do
+        ROOT_PATH=$(readlink -m "$ROOT_PATH")
+    done
+fi
+
+export ROOT_PATH
+export VENV_BIN=$(which virtualenv-2.7)
+export CONF_PATH="$ROOT_PATH/conf"
+export VENV_PATH="$ROOT_PATH/.pyenv"
+export PYTHON_PACKAGES="$CONF_PATH/python-packages"
+
+source $CONF_PATH/functions.sh
+
+case $1 in
+    freeze)
+        freeze
+        ;;
+    upgrade)
+        upgrade
+        ;;
+    quit)
+        quit
+        ;;
+    *)
+        source $CONF_PATH/root_install.sh
+        if v_is_install; then
+            upgrade
+        else
+            v_install
+        fi
+        ;;
+esac
