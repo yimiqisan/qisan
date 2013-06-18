@@ -33,6 +33,8 @@ apt_install mysql-server
 apt_install python-setuptools
 apt_install python-dev
 apt_install build-essential
+apt_install uwsgi
+apt_install uwsgi-plugin-python
 
 if [ -z $(which pip-2.7) ]; then
     sudo python2.7 $CONF_PATH/get-pip.py
